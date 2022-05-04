@@ -17,12 +17,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             StockMarketAppTheme {
-                Surface(
+              /*  Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
 
-                }
+                }*/
             }
         }
     }

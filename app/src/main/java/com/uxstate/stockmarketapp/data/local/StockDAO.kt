@@ -22,9 +22,10 @@ interface StockDAO {
 
    @Query("""
        
-       SELECT * FROM companylistingentity
-       WHERE LOWER(name) LIKE '%' || LOWER(:query) || '%' OR
-       UPPER(:query) == symbol
-   """)
+      SELECT * FROM companylistingentity WHERE
+      LOWER(name) LIKE '%' || LOWER(:query) || '%'   OR
+      
+      UPPER(:query) == symbol
+      """)
     suspend fun searchCompanyListings(query:String):List<CompanyListingEntity>
 }

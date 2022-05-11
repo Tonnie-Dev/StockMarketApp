@@ -12,5 +12,5 @@ sealed class Resource<T>(val data: T? = null, val message: String? = null) {
     /*We attache a nullable data to the Error case as we can
     * still return some data from the database cache*/
 
-    class Loading<T>(val isLoading:Boolean = true):Resource<T>()
+    class Loading<T>(val isLoading:Boolean = true):Resource<T>(data = null)
 }

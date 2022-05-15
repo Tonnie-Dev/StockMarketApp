@@ -8,6 +8,8 @@ import com.uxstate.stockmarketapp.domain.repository.StockRepository
 import com.uxstate.stockmarketapp.util.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import retrofit2.HttpException
+import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -77,7 +79,12 @@ class StockRepositoryImpl
             }
 
 
-            //
+            //API Call using try-catch as things could go wrong
+
+            try {
+val remoteListing = api.getListings()
+            }catch (e:IOException){}
+            catch (e:HttpException){}
 
 
 

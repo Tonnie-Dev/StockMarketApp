@@ -55,7 +55,35 @@ class StockRepositoryImpl
             * swip to refresh the we have up to date listings and we
             * don't need an API call*/
 
+            //check if the db is empty
+            val isDbEmpty = localListing.isEmpty() && query.isBlank()
+
+            //check if we should load from Cache
+
+            //!isDbEmpty means the database is already populated
+            val shouldJustLoadFromCache = !isDbEmpty && !fetchFromRemote
+
+
+           /* the very first time we will load from the API,
+           * the subsequent time we will load if we swipe to refresh*/
+
+            if(shouldJustLoadFromCache){
+
+                //had already requested the local cache
+                emit(Resource.Loading(isLoading =false))
+
+                //therefore we return control to flow
+                return@flow
+            }
+
+
             //
+
+
+
+
+
+
 
         }
     }

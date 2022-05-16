@@ -52,7 +52,6 @@ class StockRepositoryImpl
             emit(Resource.Success(data = localListing.map { it.toCompanyListing() }))
 
 
-
             /* check if we actually need at the API Call - if we don't
             * swip to refresh the we have up to date listings and we
             * don't need an API call*/
@@ -66,13 +65,13 @@ class StockRepositoryImpl
             val shouldJustLoadFromCache = !isDbEmpty && !fetchFromRemote
 
 
-           /* the very first time we will load from the API,
-           * the subsequent time we will load if we swipe to refresh*/
+            /* the very first time we will load from the API,
+            * the subsequent time we will load if we swipe to refresh*/
 
-            if(shouldJustLoadFromCache){
+            if (shouldJustLoadFromCache) {
 
                 //had already requested the local cache
-                emit(Resource.Loading(isLoading =false))
+                emit(Resource.Loading(isLoading = false))
 
                 //therefore we return control to flow
                 return@flow
@@ -82,14 +81,16 @@ class StockRepositoryImpl
             //API Call using try-catch as things could go wrong
 
             try {
-val remoteListing = api.getListings()
-            }catch (e:IOException){}
-            catch (e:HttpException){}
+                val remoteListing = api.getListings()
+                
+            } catch (e: IOException) {
+                e.printStackTrace()
+                emit(Resource.Error("Could not load data"))
+            } catch (e: HttpException) {
 
-
-
-
-
+                e.printStackTrace()
+                emit(Resource.Error("Could not load data"))
+            }
 
 
         }

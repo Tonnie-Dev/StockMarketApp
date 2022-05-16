@@ -82,10 +82,13 @@ class StockRepositoryImpl
 
             try {
                 val remoteListing = api.getListings()
-                
+
+                //parsing issue, no internet connection
             } catch (e: IOException) {
                 e.printStackTrace()
                 emit(Resource.Error("Could not load data"))
+
+                //invalid http response, incomplete response
             } catch (e: HttpException) {
 
                 e.printStackTrace()

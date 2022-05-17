@@ -32,6 +32,8 @@ class CompanyListingsViewModel @Inject constructor(val repository: StockReposito
 
             is CompanyListingsEvent.Refresh -> {
 
+                //if we refresh we force remote fetching
+
                 getCompanyListings(fetchFromRemote = true)
             }
             is CompanyListingsEvent.OnSearchQueryChange -> {}

@@ -50,6 +50,11 @@ class CompanyListingParser @Inject constructor() : CVSParser<CompanyListing> {
                             name = name ?: return@mapNotNull null,
                             exchange = exchange ?: return@mapNotNull null
                         )
+
+                        //also returns the original object type
+                    }.apply{
+
+                        csvReader.close()
                     }
         }
 

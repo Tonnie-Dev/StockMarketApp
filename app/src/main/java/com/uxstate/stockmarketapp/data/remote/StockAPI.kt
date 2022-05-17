@@ -9,6 +9,10 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface StockAPI {
+/*A one-shot stream from the origin server to
+ the client application with the raw bytes of
+ the response body*/
+
 
 @GET("query?function=LISTING_STATUS")
 

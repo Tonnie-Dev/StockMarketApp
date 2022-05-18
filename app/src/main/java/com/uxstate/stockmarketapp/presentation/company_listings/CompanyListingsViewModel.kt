@@ -41,7 +41,7 @@ class CompanyListingsViewModel @Inject constructor(val repository: StockReposito
     }
 
     //Called on Swipe to Refresh data
-    fun getCompanyListings(
+    private fun getCompanyListings(
         query: String = state.searchQuery,
         fetchFromRemote: Boolean = false
     ) {

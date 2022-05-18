@@ -8,7 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.uxstate.stockmarketapp.domain.repository.StockRepository
 import com.uxstate.stockmarketapp.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,12 +21,13 @@ class CompanyListingsViewModel @Inject constructor(val repository: StockReposito
 
     var state by mutableStateOf(CompanyListingsState())
         private set
-
+    private var job:Job? = null
     private val _uiEvent = Channel<CompanyListingsEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
 
     fun onEvent(event: CompanyListingsEvent) {
+
 
 
         when (event) {
@@ -36,7 +39,30 @@ class CompanyListingsViewModel @Inject constructor(val repository: StockReposito
 
                 getCompanyListings(fetchFromRemote = true)
             }
-            is CompanyListingsEvent.OnSearchQueryChange -> {}
+            //called every time there a character is changed
+            is CompanyListingsEvent.OnSearchQueryChange -> {
+
+                //update search query
+                state = state.copy(searchQuery = event.query)
+
+                //stop currently running job
+                 job?.cancel()
+
+                //start a new job
+
+                job = viewModelScope.launch {
+
+                    //delay job by half a second to decrease API Calls
+
+                    delay(500)
+
+
+                    //called only after a delay of 500 ms
+                    getCompanyListings()
+                }
+
+
+            }
         }
     }
 

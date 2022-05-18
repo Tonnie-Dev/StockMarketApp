@@ -4,36 +4,52 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.uxstate.stockmarketapp.domain.model.CompanyListing
 
 @Composable
-fun CompanyItem(name: String, exchange: String, symbol: String, modifier: Modifier = Modifier) {
+fun CompanyItem(company: CompanyListing, modifier: Modifier = Modifier) {
 
 
     Row(
-        modifier = modifier
-                .fillMaxWidth()
-                .padding(5.dp), horizontalArrangement = Arrangement.SpaceBetween
+        modifier = modifier, verticalAlignment = Alignment.CenterVertically
     ) {
 
-        Column() {
-            Text(text = name, style = MaterialTheme.typography.body1)
-            Text(text = symbol, fontStyle = FontStyle.Italic)
+        Column(modifier = Modifier.weight(1f)) {
+            Row(modifier = Modifier.fillMaxWidth()) {
+
+                Text(
+                    text = company.name,
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 16.sp,
+                    overflow = TextOverflow.Ellipsis,
+                    color = MaterialTheme.colors.onBackground,
+                    maxLines = 1,
+                    modifier = Modifier.weight(1f)
+                )
+
+                Spacer(modifier = Modifier.width(4.dp))
+
+                Text(
+                    text = "(${company.symbol})",
+                    fontStyle = FontStyle.Italic,
+                    color = MaterialTheme.colors.onBackground
+                )
+            }
+
+            Spacer(modifier = Modifier.height(4.dp))
+
+            Text(text = company.symbol, color = MaterialTheme.colors.onBackground)
         }
 
-        Column() {
 
-            Text(text = exchange, style = MaterialTheme.typography.body1)
-        }
     }
 
 }
 
-@Preview(name = "CompanyItemPreview")
-@Composable
-fun CompanyItemPreview() {
-    CompanyItem(name = "Tesla", exchange = "NYSE", symbol = "TES")
-}

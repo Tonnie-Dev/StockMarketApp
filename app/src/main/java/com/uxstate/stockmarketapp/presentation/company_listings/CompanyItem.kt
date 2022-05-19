@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.uxstate.stockmarketapp.domain.model.CompanyListing
@@ -18,28 +19,28 @@ fun CompanyItem(company: CompanyListing, modifier: Modifier = Modifier) {
 
 
     Row(
-        modifier = modifier, verticalAlignment = Alignment.CenterVertically
+            modifier = modifier, verticalAlignment = Alignment.CenterVertically
     ) {
 
         Column(modifier = Modifier.weight(1f)) {
             Row(modifier = Modifier.fillMaxWidth()) {
 
                 Text(
-                    text = company.name,
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 16.sp,
-                    overflow = TextOverflow.Ellipsis,
-                    color = MaterialTheme.colors.onBackground,
-                    maxLines = 1,
-                    modifier = Modifier.weight(1f)
+                        text = company.name,
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 16.sp,
+                        overflow = TextOverflow.Ellipsis,
+                        color = MaterialTheme.colors.onBackground,
+                        maxLines = 1,
+                        modifier = Modifier.weight(1f)
                 )
 
                 Spacer(modifier = Modifier.width(4.dp))
 
                 Text(
-                    text = "(${company.symbol})",
-                    fontStyle = FontStyle.Italic,
-                    color = MaterialTheme.colors.onBackground
+                        text = "(${company.symbol})",
+                        fontStyle = FontStyle.Italic,
+                        color = MaterialTheme.colors.onBackground
                 )
             }
 
@@ -51,5 +52,12 @@ fun CompanyItem(company: CompanyListing, modifier: Modifier = Modifier) {
 
     }
 
+}
+
+@Preview
+@Composable
+fun CompanyItemPreview() {
+
+    CompanyItem(company = CompanyListing("BV", "Premio", "Tonnie"))
 }
 

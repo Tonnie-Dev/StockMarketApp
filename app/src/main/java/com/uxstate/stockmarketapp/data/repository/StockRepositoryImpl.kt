@@ -20,10 +20,10 @@ import javax.inject.Singleton
 @Singleton
 class StockRepositoryImpl
 @Inject constructor(
-    val api: StockAPI,
-    val db: CompanyListingDatabase,
+    private val api: StockAPI,
+    private val db: CompanyListingDatabase,
     //we depend on abstraction
-    val companyListingParser: CVSParser<CompanyListing>
+   private val companyListingParser: CVSParser<CompanyListing>
 
 ) : StockRepository {
 

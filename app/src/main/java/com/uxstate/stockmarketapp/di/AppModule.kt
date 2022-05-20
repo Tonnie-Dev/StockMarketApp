@@ -1,6 +1,6 @@
 package com.uxstate.stockmarketapp.di
 
-import android.content.Context
+import android.app.Application
 import androidx.room.Room
 import com.uxstate.stockmarketapp.data.csv.CVSParser
 import com.uxstate.stockmarketapp.data.local.CompanyListingDatabase
@@ -10,13 +10,12 @@ import com.uxstate.stockmarketapp.domain.model.CompanyListing
 import com.uxstate.stockmarketapp.domain.repository.StockRepository
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
 
-@Module
+@Module // Tells hilt this is a module
 @InstallIn(SingletonComponent::class)
 
 object AppModule {
@@ -31,14 +30,16 @@ object AppModule {
                 .create()
     }
 
-    //provide Database
-    fun provideDatabase(@ApplicationContext context: Context): CompanyListingDatabase {
+    //provide Database with an application instance
+    fun provideStockDatabase(app: Application): CompanyListingDatabase {
 
-
-        return Room.databaseBuilder(context, CompanyListingDatabase::class.java, "Company Listing")
+        return Room.databaseBuilder(
+                app,
+                CompanyListingDatabase::class.java,
+                "stockdb"
+        )
                 .build()
     }
-
 
 
     //provider Repository

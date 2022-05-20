@@ -21,8 +21,17 @@ import retrofit2.create
 
 object AppModule {
 
-    //provide Database
+    //provide API
+    fun provideStockAPI(): StockAPI {
 
+        return Retrofit.Builder()
+                .baseUrl(StockAPI.BASE_URL)
+                .addConverterFactory(MoshiConverterFactory.create())
+                .build()
+                .create()
+    }
+
+    //provide Database
     fun provideDatabase(@ApplicationContext context: Context): CompanyListingDatabase {
 
 
@@ -30,8 +39,9 @@ object AppModule {
                 .build()
     }
 
-    //provider Repository
 
+
+    //provider Repository
     fun provideStockRepository(
         api: StockAPI,
         db: CompanyListingDatabase,
@@ -41,14 +51,5 @@ object AppModule {
         return StockRepositoryImpl(api = api, db = db, companyListingParser = parser)
     }
 
-    //provide API
 
-    fun provideStockAPI(): StockAPI {
-
-        return Retrofit.Builder()
-                .baseUrl(StockAPI.BASE_URL)
-                .addConverterFactory(MoshiConverterFactory.create())
-                .build()
-                .create()
-    }
 }

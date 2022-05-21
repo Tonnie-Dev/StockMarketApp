@@ -11,7 +11,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.uxstate.stockmarketapp.presentation.ui.theme.StockMarketAppTheme
+import dagger.hilt.android.AndroidEntryPoint
+
 //const val VANTAGE_API_KEY = "EWFVFPOUVDKBT16Q"
+
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

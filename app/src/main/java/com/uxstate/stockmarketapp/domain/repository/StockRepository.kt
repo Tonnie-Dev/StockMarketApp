@@ -5,10 +5,15 @@ import com.uxstate.stockmarketapp.util.Resource
 import kotlinx.coroutines.flow.Flow
 
 
-/**/
 
 interface StockRepository {
-/* Because of the Cache we use a Flow wrapped in a Success-Failure
-Resource class to emit multiple results e.g. Loading, API and local Cache*/
-    suspend fun getCompanyListings(fetchFromRemote:Boolean, query:String): Flow<Resource<List<CompanyListing>>>
+    /* Because of the Cache, we use a Flow wrapped in a Success-Failure
+    Resource class to emit multiple results e.g. Loading, API and
+    local Cache*/
+
+    suspend fun getCompanyListings(
+        fetchFromRemote: Boolean,
+        query: String
+    ): Flow<Resource<List<CompanyListing>>>
+
 }

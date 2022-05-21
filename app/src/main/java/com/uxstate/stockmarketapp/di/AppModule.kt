@@ -9,6 +9,7 @@ import com.uxstate.stockmarketapp.data.repository.StockRepositoryImpl
 import com.uxstate.stockmarketapp.domain.model.CompanyListing
 import com.uxstate.stockmarketapp.domain.repository.StockRepository
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
@@ -21,6 +22,7 @@ import retrofit2.create
 object AppModule {
 
     //provide API
+    @Provides
     fun provideStockAPI(): StockAPI {
 
         return Retrofit.Builder()
@@ -31,6 +33,7 @@ object AppModule {
     }
 
     //provide Database with an application instance
+    @Provides
     fun provideStockDatabase(app: Application): CompanyListingDatabase {
 
         return Room.databaseBuilder(
@@ -43,6 +46,7 @@ object AppModule {
 
 
     //provider Repository
+    @Provides
     fun provideStockRepository(
         api: StockAPI,
         db: CompanyListingDatabase,

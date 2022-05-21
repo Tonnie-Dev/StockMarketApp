@@ -16,19 +16,17 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 
-//force single instance of our repository for the entire app
+//force single instance of our repository impl for the entire app
 @Singleton
 class StockRepositoryImpl
 @Inject constructor(
     private val api: StockAPI,
-    private val db: CompanyListingDatabase,
+    db: CompanyListingDatabase,
     //we depend on abstraction
    private val companyListingParser: CSVParser<CompanyListing>
 
 ) : StockRepository {
-
     private val dao = db.dao
-
 
     override suspend fun getCompanyListings(
         fetchFromRemote: Boolean,

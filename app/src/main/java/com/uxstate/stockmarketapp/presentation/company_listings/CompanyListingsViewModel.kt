@@ -26,6 +26,11 @@ class CompanyListingsViewModel @Inject constructor(val repository: StockReposito
     val uiEvent = _uiEvent.receiveAsFlow()
 
 
+    init {
+
+        //call fxn with empty query to get all listings
+        getCompanyListings()
+    }
     fun onEvent(event: CompanyListingsEvent) {
 
 
@@ -63,6 +68,7 @@ class CompanyListingsViewModel @Inject constructor(val repository: StockReposito
 
 
             }
+            else -> Unit
         }
     }
 

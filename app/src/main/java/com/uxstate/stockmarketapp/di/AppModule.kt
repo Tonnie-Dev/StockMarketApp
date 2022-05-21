@@ -45,7 +45,7 @@ object AppModule {
     }
 
 
-    //provider Repository
+ /*   //provider Repository
     @Provides
     fun provideStockRepository(
         api: StockAPI,
@@ -54,7 +54,7 @@ object AppModule {
     ): StockRepository {
 
         return StockRepositoryImpl(api = api, db = db, companyListingParser = parser)
-    }
+    }*/
 
 
 }

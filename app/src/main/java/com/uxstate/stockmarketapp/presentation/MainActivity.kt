@@ -10,6 +10,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.ramcosta.composedestinations.DestinationsNavHost
+import com.uxstate.stockmarketapp.presentation.company_listings.NavGraphs
 import com.uxstate.stockmarketapp.presentation.ui.theme.StockMarketAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,12 +23,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             StockMarketAppTheme {
-              /*  Surface(
+             Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
 
-                }*/
+                 DestinationsNavHost(navGraph = NavGraphs.root)
+                }
             }
         }
     }

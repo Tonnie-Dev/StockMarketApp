@@ -17,7 +17,7 @@ import javax.inject.Singleton
 * We use singleton annotation to force one single instance
 * of this class for the entire app*/
 @Singleton
-class CompanyListingParser @Inject constructor() : CVSParser<CompanyListing> {
+class CompanyListingParser @Inject constructor() : CSVParser<CompanyListing> {
     override suspend fun parse(stream: InputStream): List<CompanyListing> {
 
         /*we use the open CVS Library and parse the CVS input stream

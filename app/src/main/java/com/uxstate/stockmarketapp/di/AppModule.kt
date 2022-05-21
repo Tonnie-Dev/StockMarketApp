@@ -2,7 +2,7 @@ package com.uxstate.stockmarketapp.di
 
 import android.app.Application
 import androidx.room.Room
-import com.uxstate.stockmarketapp.data.csv.CVSParser
+import com.uxstate.stockmarketapp.data.csv.CSVParser
 import com.uxstate.stockmarketapp.data.local.CompanyListingDatabase
 import com.uxstate.stockmarketapp.data.remote.StockAPI
 import com.uxstate.stockmarketapp.data.repository.StockRepositoryImpl
@@ -46,7 +46,7 @@ object AppModule {
     fun provideStockRepository(
         api: StockAPI,
         db: CompanyListingDatabase,
-        parser: CVSParser<CompanyListing>
+        parser: CSVParser<CompanyListing>
     ): StockRepository {
 
         return StockRepositoryImpl(api = api, db = db, companyListingParser = parser)

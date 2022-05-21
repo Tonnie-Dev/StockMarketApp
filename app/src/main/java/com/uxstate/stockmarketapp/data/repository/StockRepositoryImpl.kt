@@ -1,6 +1,6 @@
 package com.uxstate.stockmarketapp.data.repository
 
-import com.uxstate.stockmarketapp.data.csv.CVSParser
+import com.uxstate.stockmarketapp.data.csv.CSVParser
 import com.uxstate.stockmarketapp.data.local.CompanyListingDatabase
 import com.uxstate.stockmarketapp.data.mapper.toCompanyListing
 import com.uxstate.stockmarketapp.data.mapper.toCompanyListingEntity
@@ -23,7 +23,7 @@ class StockRepositoryImpl
     private val api: StockAPI,
     private val db: CompanyListingDatabase,
     //we depend on abstraction
-   private val companyListingParser: CVSParser<CompanyListing>
+   private val companyListingParser: CSVParser<CompanyListing>
 
 ) : StockRepository {
 

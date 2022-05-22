@@ -28,7 +28,7 @@ interface StockAPI {
 
 
     @GET("query?function=OVERVIEW")
-    suspend fun getCompanyOverview(
+    suspend fun getCompanyInfo(
         @Query("symbol") symbol: String,
         @Query("apikey") apiKey: String = API_KEY
     ): CompanyInfoDTO

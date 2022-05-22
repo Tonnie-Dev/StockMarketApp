@@ -1,8 +1,8 @@
 package com.uxstate.stockmarketapp.data.repository
 
 import com.uxstate.stockmarketapp.data.csv.CSVParser
-import com.uxstate.stockmarketapp.data.csv.IntradayInfoParser
 import com.uxstate.stockmarketapp.data.local.CompanyListingDatabase
+import com.uxstate.stockmarketapp.data.mapper.toCompanyInfo
 import com.uxstate.stockmarketapp.data.mapper.toCompanyListing
 import com.uxstate.stockmarketapp.data.mapper.toCompanyListingEntity
 import com.uxstate.stockmarketapp.data.remote.StockAPI
@@ -165,7 +165,19 @@ class StockRepositoryImpl
     }
 
     override suspend fun getCompanyInfo(symbol: String): Resource<CompanyInfo> {
-        TODO("Not yet implemented")
+        return try {
+            val companyInfo = api.getCompanyInfo(symbol = symbol)
+                    .toCompanyInfo()
+            Resource.Success(companyInfo)
+
+        } catch (e: IOException) {
+            e.printStackTrace()
+            Resource.Error("Could not load Company Info")
+        } catch (e: HttpException) {
+
+            e.printStackTrace()
+            Resource.Error("Could not load Company Info")
+        }
     }
 }
 

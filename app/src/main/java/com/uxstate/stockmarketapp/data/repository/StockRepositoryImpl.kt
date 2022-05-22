@@ -1,6 +1,7 @@
 package com.uxstate.stockmarketapp.data.repository
 
 import com.uxstate.stockmarketapp.data.csv.CSVParser
+import com.uxstate.stockmarketapp.data.csv.IntradayInfoParser
 import com.uxstate.stockmarketapp.data.local.CompanyListingDatabase
 import com.uxstate.stockmarketapp.data.mapper.toCompanyListing
 import com.uxstate.stockmarketapp.data.mapper.toCompanyListingEntity
@@ -26,9 +27,9 @@ class StockRepositoryImpl
     db: CompanyListingDatabase,
         //we depend on abstraction
     private val companyListingParser: CSVParser<CompanyListing>,
-    private val intradayInfoParser: CSVParser<CompanyListing>,
+    private val intradayInfoParser: CSVParser<IntradayInfo>,
 
-) : StockRepository {
+    ) : StockRepository {
     private val dao = db.dao
 
     override suspend fun getCompanyListings(
@@ -39,7 +40,7 @@ class StockRepositoryImpl
         //return a flow builder
         return flow {
 
-//inside a flow builder we have access to emit
+            //inside a flow builder we have access to emit
 
             //ABOUT TO START DATABASE QUERY
 
@@ -146,7 +147,11 @@ class StockRepositoryImpl
     override suspend fun getIntradayInfo(symbol: String): Resource<List<IntradayInfo>> {
         return try {
 
+            val stream = api.getIntradayInfo(symbol)
 
+            val info = intradayInfoParser.parse(stream.byteStream())
+
+            Resource.Success(info)
 
         } catch (e: HttpException) {
             e.printStackTrace()

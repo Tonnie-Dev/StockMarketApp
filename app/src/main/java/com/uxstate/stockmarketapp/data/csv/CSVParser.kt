@@ -13,5 +13,5 @@ format which allows data to be saved in a table structured format.*/
 interface CSVParser<T> {
 
     //returns the parsed list from the CVS file
-    suspend fun parse (stream: InputStream): List<CompanyListing>
+    suspend fun parse (stream: InputStream): List<T>
 }

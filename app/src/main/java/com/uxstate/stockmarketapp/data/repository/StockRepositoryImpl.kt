@@ -145,7 +145,7 @@ class StockRepositoryImpl
     override suspend fun getIntradayInfo(symbol: String): Resource<List<IntradayInfo>> {
         return try {
 
-            
+
 
         } catch (e: HttpException) {
             e.printStackTrace()

@@ -1,9 +1,8 @@
 package com.uxstate.stockmarketapp.data.remote
 
 
-import androidx.compose.runtime.Composable
+import com.uxstate.stockmarketapp.data.remote.dto.CompanyInfoDTO
 import okhttp3.ResponseBody
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -14,13 +13,29 @@ interface StockAPI {
  the response body*/
 
 
-@GET("query?function=LISTING_STATUS")
+    @GET("query?function=LISTING_STATUS")
+//default apiKey to API_KEY, return CSV bytes
+    suspend fun getListings(@Query("apikey") apiKey: String = API_KEY): ResponseBody
 
-//default apiKey to API_KEY
-suspend fun getListings(@Query("apikey") apiKey:String = API_KEY):ResponseBody
-companion object {
 
-    const val API_KEY = "EWFVFPOUVDKBT16Q"
-    const val BASE_URL = "https://www.alphavantage.co"
-}
+
+    @GET("query?function=TIME_SERIES_INTRADAY&interval=60min&datatype=csv")
+    suspend fun getIntradayInfo(
+
+        @Query("symbol") symbol: String, @Query("apikey") apiKey: String = API_KEY
+    ): ResponseBody // we return a response body to get a byte stream
+
+
+
+    @GET("query?function=OVERVIEW")
+    suspend fun getCompanyOverview(
+        @Query("symbol") symbol: String,
+        @Query("apikey") apiKey: String = API_KEY
+    ): List<CompanyInfoDTO>
+
+    companion object {
+
+        const val API_KEY = "EWFVFPOUVDKBT16Q"
+        const val BASE_URL = "https://www.alphavantage.co"
+    }
 }

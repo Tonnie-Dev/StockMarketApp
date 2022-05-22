@@ -166,9 +166,9 @@ class StockRepositoryImpl
 
     override suspend fun getCompanyInfo(symbol: String): Resource<CompanyInfo> {
         return try {
-            val companyInfo = api.getCompanyInfo(symbol = symbol)
+            val result = api.getCompanyInfo(symbol = symbol)
                     .toCompanyInfo()
-            Resource.Success(companyInfo)
+            Resource.Success(result)
 
         } catch (e: IOException) {
             e.printStackTrace()

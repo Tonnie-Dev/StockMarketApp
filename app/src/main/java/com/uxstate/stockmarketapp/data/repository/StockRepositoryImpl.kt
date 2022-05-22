@@ -25,7 +25,8 @@ class StockRepositoryImpl
     private val api: StockAPI,
     db: CompanyListingDatabase,
         //we depend on abstraction
-    private val companyListingParser: CSVParser<CompanyListing>
+    private val companyListingParser: CSVParser<CompanyListing>,
+    private val intradayInfoParser: CSVParser<CompanyListing>,
 
 ) : StockRepository {
     private val dao = db.dao

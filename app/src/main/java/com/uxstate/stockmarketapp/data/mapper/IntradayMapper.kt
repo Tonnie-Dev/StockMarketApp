@@ -18,10 +18,12 @@ fun IntradayInfoDTO.toIntradayInfo(): IntradayInfo {
 
 
 fun CompanyInfoDTO.toCompanyInfo(): CompanyInfo {
-    return CompanyInfo(name = "", symbol = "", description = "", country = "", industry = "")
+    return CompanyInfo(
+            name = this.name ?: "",
+            symbol = this.symbol ?: "",
+            description = this.description ?: "",
+            country = this.country ?: "",
+            industry = this.industry ?: ""
+    )
 }
 
-fun IntradayInfo.toIntradayDTO(): IntradayInfoDTO {
-
-    return IntradayInfoDTO(timeStamp = this.date.toString(), close = this.close)
-}

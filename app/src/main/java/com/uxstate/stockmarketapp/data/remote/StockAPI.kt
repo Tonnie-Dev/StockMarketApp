@@ -31,7 +31,7 @@ interface StockAPI {
     suspend fun getCompanyOverview(
         @Query("symbol") symbol: String,
         @Query("apikey") apiKey: String = API_KEY
-    ): List<CompanyInfoDTO>
+    ): CompanyInfoDTO
 
     companion object {
 

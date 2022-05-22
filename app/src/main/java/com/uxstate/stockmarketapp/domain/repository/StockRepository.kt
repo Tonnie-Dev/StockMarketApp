@@ -1,5 +1,6 @@
 package com.uxstate.stockmarketapp.domain.repository
 
+import com.uxstate.stockmarketapp.domain.model.CompanyInfo
 import com.uxstate.stockmarketapp.domain.model.CompanyListing
 import com.uxstate.stockmarketapp.domain.model.IntradayInfo
 import com.uxstate.stockmarketapp.util.Resource
@@ -18,5 +19,7 @@ interface StockRepository {
     ): Flow<Resource<List<CompanyListing>>>
 
 
-    suspend fun getIntradayInfo(query: String):IntradayInfo
+    suspend fun getIntradayInfo(symbol:String):Resource<List<IntradayInfo>>
+
+    suspend fun  getCompanyInfo(symbol:String):Resource<CompanyInfo>
 }

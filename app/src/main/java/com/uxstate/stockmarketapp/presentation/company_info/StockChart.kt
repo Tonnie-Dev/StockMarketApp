@@ -19,12 +19,18 @@ fun StockChart(
     //cache values with remember so that they are not re-calculated
     var transparentGraphColor = remember { graphColor.copy(alpha = .5f) }
 
-    var upperValue = remember {
+    var upperValue =  remember(infos) {
         //find the highest value from infos list
 
         //returns max of the close value or null
         (infos.maxOfOrNull { it.close }
                 //add one as integer are rounded to floor
                 ?.plus(1))?.roundToInt() ?: 0
+    }
+
+
+    val lowerValue = remember (infos){
+
+        infos.minOfOrNull { it.close }?.toInt() ?:0
     }
 }

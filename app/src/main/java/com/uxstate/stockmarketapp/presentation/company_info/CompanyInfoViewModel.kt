@@ -33,13 +33,15 @@ class CompanyInfoViewModel @Inject constructor(
             state = state.copy(isLoading = true)
 
             //make api calls - 2 network calls
-            /*we use async to run the coroutines independent of each other instead of
-            running the Coroutines sequentially*/
+            /*we use async to run the coroutines concurrently independent
+            of each other instead of  running the Coroutines sequentially
+            return a result at the same time using .await call*/
 
             //use async coroutine builder to return a result of Deferred<T>
             val companyInfoResult = async { repository.getCompanyInfo(symbol) }
             val intradayInfoResult = async { repository.getIntradayInfo(symbol) }
 
+            //Map state to repository.getCompanyInfo result
             when (val result = companyInfoResult.await()) {
 
                 is Resource.Success -> {
@@ -53,6 +55,26 @@ class CompanyInfoViewModel @Inject constructor(
                 }
                 else -> Unit
             }
+
+            //Map state to repository.getIntradayInfo result
+
+            when (val result = intradayInfoResult.await()) {
+
+                is Resource.Success -> {
+
+                    state = state.copy(
+                            intradayInfo = result.data ?: emptyList(),
+                            isLoading = false,
+                            error = null
+                    )
+                }
+                is Resource.Error -> {
+
+                    state = state.copy(error = result.message, isLoading = false)
+                }
+                else -> Unit
+            }
+
 
         }
     }

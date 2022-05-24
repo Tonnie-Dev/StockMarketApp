@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.sp
 import com.uxstate.stockmarketapp.domain.model.IntradayInfo
+import kotlin.math.round
 import kotlin.math.roundToInt
 
 @Composable
@@ -76,6 +77,26 @@ fun StockChart(
             drawContext.canvas.nativeCanvas.apply {
 
                 drawText(hour.toString(), spacing + spacePerHour * i, size.height - 5, textPaint)
+            }
+        }
+
+        /*calculate priceStep by computing the difference divided by
+       5 numbers that we want to show*/
+
+        val priceStep = (upperValue - lowerValue) / 5f
+
+        (0..5).forEach { i ->
+
+
+            drawContext.canvas.nativeCanvas.apply {
+
+
+                drawText(
+                        round((lowerValue + i * priceStep)).toString(),
+                        30f,
+                        size.height - spacing - (i * size.height/5),
+                        textPaint
+                )
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.uxstate.stockmarketapp.presentation.company_info
 
 import android.graphics.Paint
+import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -55,5 +56,13 @@ fun StockChart(
             //returns the result of executing the lambda
             textSize = density.run {12.sp.toPx()}
         }
+    }
+
+    //Canvas Composable - provides drawing are to draw anything
+
+    Canvas(modifier = modifier){
+
+
+        val spacePerHour = (size.width - spacing)/infos.size
     }
 }

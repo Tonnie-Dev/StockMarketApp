@@ -6,8 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import com.uxstate.stockmarketapp.domain.model.IntradayInfo
 import kotlin.math.roundToInt
@@ -24,7 +24,7 @@ fun StockChart(
     //cache values with remember so that they are not re-calculated
     var transparentGraphColor = remember { graphColor.copy(alpha = .5f) }
 
-    var upperValue =  remember(infos) {
+    var upperValue = remember(infos) {
         //find the highest value from infos list
 
         //returns max of the close value or null
@@ -34,10 +34,11 @@ fun StockChart(
     }
 
 
-    val lowerValue = remember (infos){
+    val lowerValue = remember(infos) {
 
         //for lower value we need the lowest value (as rounded to the floor the better)
-        infos.minOfOrNull { it.close }?.toInt() ?:0
+        infos.minOfOrNull { it.close }
+                ?.toInt() ?: 0
     }
 
     //Density to help us change font sp to px
@@ -54,15 +55,28 @@ fun StockChart(
             textAlign = Paint.Align.CENTER
 
             //returns the result of executing the lambda
-            textSize = density.run {12.sp.toPx()}
+            textSize = density.run { 12.sp.toPx() }
         }
     }
 
     //Canvas Composable - provides drawing are to draw anything
 
-    Canvas(modifier = modifier){
+    Canvas(modifier = modifier) {
 
 
-        val spacePerHour = (size.width - spacing)/infos.size
+        val spacePerHour = (size.width - spacing) / infos.size
+
+
+        (0 until (infos.size - 1) step 2).forEach { i ->
+
+            val info = infos[i]
+            val hour = info.date.hour
+
+            //Use native canvas as Jetpack Canvas doesn't support text
+            drawContext.canvas.nativeCanvas.apply {
+
+                drawText(hour.toString(), spacing + spacePerHour * i, size.height - 5, textPaint)
+            }
+        }
     }
 }

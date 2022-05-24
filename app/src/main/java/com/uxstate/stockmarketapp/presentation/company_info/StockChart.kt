@@ -1,9 +1,13 @@
 package com.uxstate.stockmarketapp.presentation.company_info
 
+import android.graphics.Paint
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.sp
 import com.uxstate.stockmarketapp.domain.model.IntradayInfo
 import kotlin.math.roundToInt
 
@@ -31,6 +35,25 @@ fun StockChart(
 
     val lowerValue = remember (infos){
 
+        //for lower value we need the lowest value (as rounded to the floor the better)
         infos.minOfOrNull { it.close }?.toInt() ?:0
+    }
+
+    //Density to help us change font sp to px
+    val density = LocalDensity.current
+
+    val textPaint = remember(density) {
+
+        //use android.graphics.Paint to draw text on the screen
+        Paint().apply {
+
+            color = android.graphics.Color.WHITE
+
+            //default is top-left
+            textAlign = Paint.Align.CENTER
+
+            //returns the result of executing the lambda
+            textSize = density.run {12.sp.toPx()}
+        }
     }
 }

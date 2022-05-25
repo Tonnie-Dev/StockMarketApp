@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.sp
@@ -56,11 +57,15 @@ fun StockChart(
             textAlign = Paint.Align.CENTER
 
             //returns the result of executing the lambda
+
+            /*we use density so that the paint text will
+            * be the same as other text sizes for this
+            * composable*/
             textSize = density.run { 12.sp.toPx() }
         }
     }
 
-    //Canvas Composable - provides drawing are to draw anything
+    //Canvas Composable - provides drawing area to draw anything
 
     Canvas(modifier = modifier) {
 
@@ -75,7 +80,7 @@ fun StockChart(
 
             //Use native canvas as Jetpack Canvas doesn't support text
             drawContext.canvas.nativeCanvas.apply {
-
+                //get access to native canvas fxns
                 drawText(hour.toString(), spacing + spacePerHour * i, size.height - 5, textPaint)
             }
         }
@@ -94,9 +99,24 @@ fun StockChart(
                 drawText(
                         round((lowerValue + i * priceStep)).toString(),
                         30f,
-                        size.height - spacing - (i * size.height/5),
+                        size.height - spacing - (i * size.height / 5),
                         textPaint
                 )
+            }
+        }
+
+
+        //GRAPH
+
+        //paths uses curves
+
+        val strokePath = Path().apply {
+
+            val height = size.height
+
+            for (i in infos.indices){
+                
+
             }
         }
     }

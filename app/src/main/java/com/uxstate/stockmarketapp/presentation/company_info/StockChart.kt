@@ -122,6 +122,7 @@ fun StockChart(
                 val nextInfo = infos.getOrNull(i + 1    )?: infos.last()
 //check how far we are from zero and divide that by length of y-axis
                 val leftRatio =(info.close -lowerValue) / (upperValue - lowerValue)
+                val rightRation = (nextInfo.close -lowerValue)/ (upperValue -lowerValue)
 
             }
         }

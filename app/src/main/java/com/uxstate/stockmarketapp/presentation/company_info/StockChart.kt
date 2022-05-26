@@ -113,9 +113,15 @@ fun StockChart(
         val strokePath = Path().apply {
 
             val height = size.height
-
+ //infos.indices returns a range 0..info.size -1
             for (i in infos.indices){
-                
+
+                val info = infos[i]
+
+                //checks array out of bounds exception
+                val nextInfo = infos.getOrNull(i + 1    )?: infos.last()
+//check how far we are from zero and divide that by length of y-axis
+                val leftRatio =(info.close -lowerValue) / (upperValue - lowerValue)
 
             }
         }

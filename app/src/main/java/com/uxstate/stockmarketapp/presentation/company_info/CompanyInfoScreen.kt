@@ -116,8 +116,24 @@ fun CompanyInfoScreen(symbol: String, viewModel: CompanyInfoViewModel = hiltView
                         fontSize = 12.sp,
                         modifier = Modifier.fillMaxWidth()
                 )
-                
 
+                //check we have entries on the intraday info we show the chart
+                if (state.intradayInfo.isNotEmpty()) {
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(text = "Market Summary")
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    /*We need to set the Canvas' height because each canvas
+                    * needs to have a fixed area to draw and that you can't
+                    * work well with a dynamic size*/
+                    StockChart(infos = state.intradayInfo,
+                            modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(250.dp)
+                                    .align(CenterHorizontally)
+                    )
+
+                }
             }
         }
     }

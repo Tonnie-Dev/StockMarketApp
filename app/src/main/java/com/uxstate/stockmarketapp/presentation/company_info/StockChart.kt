@@ -144,11 +144,12 @@ fun StockChart(
         }
 
 
-        //Gradient - Compose
+        //Gradient - Compose -
 
 
         /* copy compose path into android path and convert it
-         back to compose path*/
+         back to compose path. We need the android graphics
+         path to copy paths of compose path does not.*/
         val fillPath = android.graphics.Path(strokePath.asAndroidPath())
                 .asComposePath()
                 .apply {
@@ -162,5 +163,18 @@ fun StockChart(
                     //connect the current coordinates with the starting point
                     close()
                 }
+
+        //start with fill as bottom layer so that the stroke is not overlapped
+        drawPath(
+                path = fillPath,
+                brush = Brush.verticalGradient(
+                        colors = listOf(
+                                transparentGraphColor,
+                                Color.Transparent
+                        ),
+                        //where we want the gradient to stop
+                        endY = size.height - spacing
+                )
+        )
     }
 }

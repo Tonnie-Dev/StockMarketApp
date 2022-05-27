@@ -100,6 +100,24 @@ fun CompanyInfoScreen(symbol: String, viewModel: CompanyInfoViewModel = hiltView
 
                 Spacer(modifier = Modifier.height(8.dp))
 
+
+                Divider(
+                        modifier = Modifier
+                                .fillMaxWidth()
+
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                //Description
+
+                Text(
+                        text = company.description,
+                        fontSize = 12.sp,
+                        modifier = Modifier.fillMaxWidth()
+                )
+                
+
             }
         }
     }

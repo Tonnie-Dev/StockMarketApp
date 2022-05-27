@@ -2,9 +2,11 @@ package com.uxstate.stockmarketapp.presentation.company_info
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -44,6 +46,7 @@ fun CompanyInfoScreen(symbol: String, viewModel: CompanyInfoViewModel = hiltView
 
                 company ->
 
+                //Title
                 Text(
                         text = company.name,
                         fontWeight = FontWeight.Bold,
@@ -52,7 +55,26 @@ fun CompanyInfoScreen(symbol: String, viewModel: CompanyInfoViewModel = hiltView
                         modifier = Modifier.fillMaxWidth()
                 )
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(8.dp))
+
+
+                //symbol
+                Text(
+                        text = company.symbol,
+                        fontStyle = FontStyle.Italic,
+                        fontSize = 14.sp,
+
+                        modifier = Modifier.fillMaxWidth()
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+
+                Divider(
+                        modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp)
+                )
             }
         }
     }

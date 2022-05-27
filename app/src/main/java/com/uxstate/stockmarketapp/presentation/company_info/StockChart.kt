@@ -137,7 +137,7 @@ fun StockChart(
                     moveTo(x = x1, y = y1)
                 }
 
-                lastX = x1+x2
+                lastX = x1 + x2
                 //after that we start drawing a curve using quadratic Bezier
                 quadraticBezierTo(x1 = x1, y1 = y1, x2 = lastX, y2 = (y1 + y2) / 2f)
             }
@@ -157,7 +157,10 @@ fun StockChart(
                     //draw a line instead of a curve
 
                     lineTo(lastX, size.height - spacing)
+                    lineTo(spacing, y = size.height - spacing)
 
+                    //connect the current coordinates with the starting point
+                    close()
                 }
     }
 }

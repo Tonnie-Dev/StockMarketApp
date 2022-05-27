@@ -73,8 +73,24 @@ fun CompanyInfoScreen(symbol: String, viewModel: CompanyInfoViewModel = hiltView
                 Divider(
                         modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(16.dp)
+
                 )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                //Industry Text
+
+                Text(
+                        text = "Industry: ${company.industry}",
+                        fontSize = 14.sp,
+                        modifier = Modifier.fillMaxWidth(),
+                        overflow = TextOverflow.Ellipsis
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+
+
             }
         }
     }

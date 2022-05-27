@@ -2,14 +2,19 @@ package com.uxstate.stockmarketapp.presentation.company_info
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.annotation.Destination
 import com.uxstate.stockmarketapp.presentation.ui.theme.DarkBlue
@@ -126,7 +131,8 @@ fun CompanyInfoScreen(symbol: String, viewModel: CompanyInfoViewModel = hiltView
                     /*We need to set the Canvas' height because each canvas
                     * needs to have a fixed area to draw and that you can't
                     * work well with a dynamic size*/
-                    StockChart(infos = state.intradayInfo,
+                    StockChart(
+                            infos = state.intradayInfo,
                             modifier = Modifier
                                     .fillMaxWidth()
                                     .height(250.dp)
@@ -138,4 +144,17 @@ fun CompanyInfoScreen(symbol: String, viewModel: CompanyInfoViewModel = hiltView
         }
     }
 
+
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+
+
+        if (state.isLoading) {
+
+
+            CircularProgressIndicator()
+        } else if (state.error != null) {
+
+            Text(text = state.error, color = MaterialTheme.colors.error)
+        }
+    }
 }

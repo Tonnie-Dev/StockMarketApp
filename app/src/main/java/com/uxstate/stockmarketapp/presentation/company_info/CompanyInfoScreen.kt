@@ -90,6 +90,15 @@ fun CompanyInfoScreen(symbol: String, viewModel: CompanyInfoViewModel = hiltView
                 Spacer(modifier = Modifier.height(8.dp))
 
 
+                //Country
+                Text(
+                        text = "Country: ${company.country}",
+                        fontSize = 14.sp,
+                        modifier = Modifier.fillMaxWidth(),
+                        overflow = TextOverflow.Ellipsis
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
 
             }
         }

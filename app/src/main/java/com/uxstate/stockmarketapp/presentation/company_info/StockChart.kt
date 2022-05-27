@@ -6,7 +6,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.uxstate.stockmarketapp.domain.model.IntradayInfo
 import kotlin.math.round
@@ -176,5 +178,15 @@ fun StockChart(
                         endY = size.height - spacing
                 )
         )
+
+        //draw stroke path as the top layer
+
+        drawPath(
+                path = strokePath,
+                color = graphColor,
+                style = Stroke(width = 3.dp.toPx(), cap = StrokeCap.Round)
+        )
     }
+
+
 }

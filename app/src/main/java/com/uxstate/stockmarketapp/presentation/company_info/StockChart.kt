@@ -5,9 +5,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.nativeCanvas
+import androidx.compose.ui.graphics.*
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.sp
 import com.uxstate.stockmarketapp.domain.model.IntradayInfo
@@ -105,10 +103,10 @@ fun StockChart(
             }
         }
 
-
+        var lastX = 0f
         //GRAPH
 
-        //paths uses curves
+        //Compose Stroke Path
 
         val strokePath = Path().apply {
 
@@ -130,8 +128,8 @@ fun StockChart(
                 val x1 = spacing + (spacePerHour * i)
                 val y1 = height - spacing - (leftRatio * height).toFloat()
 
-                val x2 = spacing + (i +1) *spacePerHour
-                val y2 = height - spacing - (rightRatio *height).toFloat()
+                val x2 = spacing + (i + 1) * spacePerHour
+                val y2 = height - spacing - (rightRatio * height).toFloat()
 
                 //check if we are at the first coordinate and move to x1,y1
                 if (i == 0) {
@@ -139,9 +137,27 @@ fun StockChart(
                     moveTo(x = x1, y = y1)
                 }
 
-                //after that we start drawing a line using quadratic Bezier
-quadraticBezierTo(x1 = x1, y1 = y1, x2 = (x2 - x1/2f), y2 = (y2 - y1)/2f)
+                lastX = x1+x2
+                //after that we start drawing a curve using quadratic Bezier
+                quadraticBezierTo(x1 = x1, y1 = y1, x2 = lastX, y2 = (y1 + y2) / 2f)
             }
         }
+
+
+        //Gradient - Compose
+
+
+        /* copy compose path into android path and convert it
+         back to compose path*/
+        val fillPath = android.graphics.Path(strokePath.asAndroidPath())
+                .asComposePath()
+                .apply {
+
+
+                    //draw a line instead of a curve
+
+                    lineTo(lastX, size.height - spacing)
+
+                }
     }
 }

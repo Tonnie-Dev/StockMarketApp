@@ -24,7 +24,7 @@ fun StockChart(
     val spacing = 100f
 
     //cache values with remember so that they are not re-calculated
-    var transparentGraphColor = remember { graphColor.copy(alpha = .5f) }
+    val transparentGraphColor = remember { graphColor.copy(alpha = .5f) }
 
     val upperValue = remember(infos) {
         //find the highest value from infos list

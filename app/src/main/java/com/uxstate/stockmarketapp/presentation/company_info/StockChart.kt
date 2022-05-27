@@ -26,10 +26,10 @@ fun StockChart(
     //cache values with remember so that they are not re-calculated
     var transparentGraphColor = remember { graphColor.copy(alpha = .5f) }
 
-    var upperValue = remember(infos) {
+    val upperValue = remember(infos) {
         //find the highest value from infos list
 
-        //returns max of the close value or null
+        //returns max of the close value or null (close is double)
         (infos.maxOfOrNull { it.close }
                 //add one as integer are rounded to floor
                 ?.plus(1))?.roundToInt() ?: 0
@@ -113,17 +113,34 @@ fun StockChart(
         val strokePath = Path().apply {
 
             val height = size.height
- //infos.indices returns a range 0..info.size -1
-            for (i in infos.indices){
+            //infos.indices returns a range 0..info.size -1
+            for (i in infos.indices) {
 
                 val info = infos[i]
 
                 //checks array out of bounds exception
-                val nextInfo = infos.getOrNull(i + 1    )?: infos.last()
-//check how far we are from zero and divide that by length of y-axis
-                val leftRatio =(info.close -lowerValue) / (upperValue - lowerValue)
-                val rightRation = (nextInfo.close -lowerValue)/ (upperValue -lowerValue)
+                val nextInfo = infos.getOrNull(i + 1) ?: infos.last()
+                /*check how far we are from zero and divide that by
+                 length of y-axis - map the intervalue to a number
+                  between zero & one*/
+                val leftRatio = (info.close - lowerValue) / (upperValue - lowerValue)
+                val rightRatio = (nextInfo.close - lowerValue) / (upperValue - lowerValue)
 
+                //get the first 2 coordinates
+                val x1 = spacing + (spacePerHour * i)
+                val y1 = height - spacing - (leftRatio * height).toFloat()
+
+                val x2 = spacing + (i +1) *spacePerHour
+                val y2 = height - spacing - (rightRatio *height).toFloat()
+
+                //check if we are at the first coordinate and move to x1,y1
+                if (i == 0) {
+
+                    moveTo(x = x1, y = y1)
+                }
+
+                //after that we start drawing a line using quadratic Bezier
+quadraticBezierTo(x1 = x1, y1 = y1, x2 = (x2 - x1/2f), y2 = (y2 - y1)/2f)
             }
         }
     }

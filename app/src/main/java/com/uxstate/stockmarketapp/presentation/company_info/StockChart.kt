@@ -56,7 +56,7 @@ fun StockChart(
             //default is top-left
             textAlign = Paint.Align.CENTER
 
-            //returns the result of executing the lambda
+            //run {} returns the result of executing the lambda
 
             /*we use density so that the paint text will
             * be the same as other text sizes for this
@@ -90,7 +90,7 @@ fun StockChart(
 
         val priceStep = (upperValue - lowerValue) / 5f
 
-        (0..5).forEach { i ->
+        (0..4).forEach { i ->
 
 
             drawContext.canvas.nativeCanvas.apply {

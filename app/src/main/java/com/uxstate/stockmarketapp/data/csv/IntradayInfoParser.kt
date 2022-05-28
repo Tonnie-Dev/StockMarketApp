@@ -70,13 +70,14 @@ class IntradayInfoParser @Inject constructor() : CSVParser<IntradayInfo> {
                           are interested in yesterday*/
 
                         it.date.dayOfMonth == LocalDate.now()
-                                .minusDays(3).dayOfMonth
+                                .minusDays(1).dayOfMonth
 
                     }
                     //sort by hour
                     .sortedBy { it.date.hour }
                     .apply {
 
+                        //ignore this as we are using IO Dispatcher
                         csvReader.close()
                     }
         }

@@ -147,8 +147,11 @@ fun StockChart(
                 //check if we are at the first coordinate and move to x1,y1
                 if (i == 0) {
 
+                    //move pen to ist point if i=o
                     moveTo(x = x1, y = y1)
                 }
+
+                //if i != 0 quadraticBezier takes over to start drawing curves
 
                 lastX = (x1 + x2)/2f
                 //after that we start drawing a curve using quadratic Bezier

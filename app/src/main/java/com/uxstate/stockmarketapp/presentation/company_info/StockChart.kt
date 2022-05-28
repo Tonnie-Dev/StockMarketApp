@@ -11,6 +11,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.uxstate.stockmarketapp.domain.model.IntradayInfo
+import timber.log.Timber
 import kotlin.math.round
 import kotlin.math.roundToInt
 
@@ -95,9 +96,19 @@ fun StockChart(
 
             drawContext.canvas.nativeCanvas.apply {
 
-
+                Timber.i("""
+                    
+                    i= $i,  
+                    L= $lowerValue, 
+                    U= $upperValue,
+                    P= $priceStep,
+                    CaS =${ round(lowerValue + (i * priceStep))}
+                             """)
                 drawText(
-                        round(lowerValue + (i * priceStep)).toString(),
+
+
+                        //round Float
+                        (lowerValue + (i * priceStep)).toString(),
                         30f,
                         size.height - spacing - (i * size.height / 5),
                         textPaint

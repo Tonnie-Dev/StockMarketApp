@@ -137,8 +137,8 @@ fun StockChart(
                 val leftRatio = (info.close - lowerValue) / (upperValue - lowerValue)
                 val rightRatio = (nextInfo.close - lowerValue) / (upperValue - lowerValue)
 
-                //get the first 2 coordinates
-                val x1 = spacing + (spacePerHour * i)
+                //get the first 2 co-ordinates
+                val x1 = spacing + ( i*spacePerHour )
                 val y1 = height - spacing - (leftRatio * height).toFloat()
 
                 val x2 = spacing + (i + 1) * spacePerHour
@@ -150,8 +150,10 @@ fun StockChart(
                     moveTo(x = x1, y = y1)
                 }
 
-                lastX = x1 + x2
+                lastX = (x1 + x2)/2f
                 //after that we start drawing a curve using quadratic Bezier
+
+                //x2,y2 is quadraticBezier control point
                 quadraticBezierTo(x1 = x1, y1 = y1, x2 = lastX, y2 = (y1 + y2) / 2f)
             }
         }

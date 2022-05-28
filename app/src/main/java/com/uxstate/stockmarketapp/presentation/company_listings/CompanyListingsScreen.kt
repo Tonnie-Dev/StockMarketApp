@@ -49,7 +49,7 @@ fun CompanyListingsScreen(
 
                 trailingIcon = {
 
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = {viewModel.onEvent(CompanyListingsEvent.ClearText)}) {
                         Icon( imageVector = Icons.Default.Clear, "Clear Text" )
                     }
 

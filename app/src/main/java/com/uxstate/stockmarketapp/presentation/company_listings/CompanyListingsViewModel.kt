@@ -72,8 +72,10 @@ class CompanyListingsViewModel @Inject constructor(val repository: StockReposito
             is CompanyListingsEvent.ClearText ->{
 
                 state = state.copy(searchQuery = "")
+                //called only after a delay of 500 ms
+                getCompanyListings()
             }
-            else -> Unit
+
         }
     }
 

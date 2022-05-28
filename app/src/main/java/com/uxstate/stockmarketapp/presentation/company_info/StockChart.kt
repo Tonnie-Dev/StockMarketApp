@@ -97,7 +97,7 @@ fun StockChart(
 
 
                 drawText(
-                        round((lowerValue + i * priceStep)).toString(),
+                        round(lowerValue + (i * priceStep)).toString(),
                         30f,
                         size.height - spacing - (i * size.height / 5),
                         textPaint

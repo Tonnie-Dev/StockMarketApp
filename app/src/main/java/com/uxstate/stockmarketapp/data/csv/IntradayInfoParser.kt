@@ -70,7 +70,7 @@ class IntradayInfoParser @Inject constructor() : CSVParser<IntradayInfo> {
                           are interested in yesterday*/
 
                         it.date.dayOfMonth == LocalDate.now()
-                                .minusDays(1).dayOfMonth
+                                .minusDays(2).dayOfMonth
 
                     }
                     //sort by hour

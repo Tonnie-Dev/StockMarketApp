@@ -8,6 +8,7 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
 import java.io.InputStream
 import java.io.InputStreamReader
+import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalDateTime
 import javax.inject.Inject
@@ -32,6 +33,7 @@ class IntradayInfoParser @Inject constructor() : CSVParser<IntradayInfo> {
         /*create a csv reader which takes an InputStreamReader which
         in return takes a stream*/
         val csvReader = CSVReader(InputStreamReader(stream))
+
 
 
         //return CSV's reader output vio IO Dispatcher
@@ -63,18 +65,20 @@ class IntradayInfoParser @Inject constructor() : CSVParser<IntradayInfo> {
 
                         dto.toIntradayInfo()
 
-                        //also returns the original object type
+
                     }
                     .filter {
                         /*  some timestamps overlaps over 2 days period but we
                           are interested in yesterday*/
-
+val isWeekend = it.date.dayOfWeek-1 == DayOfWeek.SATURDAY ||  it.date.dayOfWeek -1 == DayOfWeek.SUNDAY
                         it.date.dayOfMonth == LocalDate.now()
                                 .minusDays(2).dayOfMonth
 
                     }
                     //sort by hour
                     .sortedBy { it.date.hour }
+
+                    //also returns the original object type
                     .apply {
 
                         //ignore this as we are using IO Dispatcher

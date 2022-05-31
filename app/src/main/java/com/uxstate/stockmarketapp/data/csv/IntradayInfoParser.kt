@@ -6,6 +6,7 @@ import com.uxstate.stockmarketapp.data.remote.dto.IntradayInfoDTO
 import com.uxstate.stockmarketapp.domain.model.IntradayInfo
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 import java.io.InputStream
 import java.io.InputStreamReader
 import java.time.DayOfWeek
@@ -66,13 +67,22 @@ class IntradayInfoParser @Inject constructor() : CSVParser<IntradayInfo> {
                         dto.toIntradayInfo()
 
 
-                    }
+                    }.filter {
+                      //  it.date.dayOfWeek == DayOfWeek.SATURDAY
+                    it.date.dayOfWeek!= DayOfWeek.SUNDAY }
+
+
                     .filter {
                         /*  some timestamps overlaps over 2 days period but we
                           are interested in yesterday*/
-val isWeekend = it.date.dayOfWeek-1 == DayOfWeek.SATURDAY ||  it.date.dayOfWeek -1 == DayOfWeek.SUNDAY
+
+                        Timber.i("The Day of month -4 is: ${LocalDate.now().minusDays(4).dayOfMonth}")
+                        Timber.i("The Day of month -3 is: ${LocalDate.now().minusDays(3).dayOfMonth}")
+                        Timber.i("The Day of month -2 is: ${LocalDate.now().minusDays(2).dayOfMonth}")
+                        Timber.i("The Day of month -1 is: ${LocalDate.now().minusDays(1).dayOfMonth}")
                         it.date.dayOfMonth == LocalDate.now()
-                                .minusDays(2).dayOfMonth
+                                .minusDays(1).dayOfMonth
+
 
                     }
                     //sort by hour

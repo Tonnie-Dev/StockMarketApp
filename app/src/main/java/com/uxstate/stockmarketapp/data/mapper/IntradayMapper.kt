@@ -6,8 +6,10 @@ import com.uxstate.stockmarketapp.domain.model.CompanyInfo
 import com.uxstate.stockmarketapp.domain.model.IntradayInfo
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+
 import java.util.*
 
+//DTO to domain
 fun IntradayInfoDTO.toIntradayInfo(): IntradayInfo {
 
     val pattern = "yyyy-MM-dd HH:mm:ss"
@@ -17,6 +19,7 @@ fun IntradayInfoDTO.toIntradayInfo(): IntradayInfo {
 }
 
 
+//DTO to domain
 fun CompanyInfoDTO.toCompanyInfo(): CompanyInfo {
     return CompanyInfo(
             name = this.name ?: "",

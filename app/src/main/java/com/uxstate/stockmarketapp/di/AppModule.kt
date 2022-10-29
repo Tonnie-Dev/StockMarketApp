@@ -29,7 +29,7 @@ object AppModule {
                 .baseUrl(StockAPI.BASE_URL)
                 .addConverterFactory(MoshiConverterFactory.create())
                 .build()
-                .create()
+                .create(StockAPI::class.java)
     }
 
     //provide Database with an application instance

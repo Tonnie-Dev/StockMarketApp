@@ -24,7 +24,7 @@ import javax.inject.Singleton
 class StockRepositoryImpl
 @Inject constructor(
     private val api: StockAPI,
-    db: CompanyListingDatabase,
+    private val db: CompanyListingDatabase,
         //we depend on abstraction
     private val companyListingParser: CSVParser<CompanyListing>,
     private val intradayInfoParser: CSVParser<IntradayInfo>,
@@ -35,18 +35,18 @@ class StockRepositoryImpl
     override suspend fun getCompanyListings(
         fetchFromRemote: Boolean,
         query: String
-    ): Flow<Resource<List<CompanyListing>>> {
-
+    ): Flow<Resource<List<CompanyListing>>>
+=
         //return a flow builder
-        return flow {
+        flow {
 
             //inside a flow builder we have access to emit
 
             //ABOUT TO START DATABASE QUERY
 
             //emit a loading resource
-            emit(Resource.Loading(isLoading = true))
 
+            emit(Resource.Loading(isLoading = true))
 
             //QUERYING DB
             //obtain the list of companies from db
@@ -117,13 +117,16 @@ class StockRepositoryImpl
 
             //null check for listings
 
-            remoteListings?.let { listings ->
+            remoteListings?.let { listings->
 
                 //delete database
                 dao.clearListings()
 
                 //insert updated listings
-                dao.insertCompanyListings(remoteListings.map { it.toCompanyListingEntity() })
+                dao.insertCompanyListings(listings.map {
+
+                    it.toCompanyListingEntity()
+                })
 
                 //One Single Source of truth - we ensure data comes for db
 
@@ -136,13 +139,13 @@ class StockRepositoryImpl
                 )
 
                 //discontinue loading
-                emit(Resource.Loading(false))
+                emit(Resource.Loading(isLoading = false))
 
 
             }
 
         }
-    }
+
 
     override suspend fun getIntradayInfo(symbol: String): Resource<List<IntradayInfo>> {
         return try {

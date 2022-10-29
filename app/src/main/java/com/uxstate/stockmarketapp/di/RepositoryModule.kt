@@ -8,6 +8,7 @@ import com.uxstate.stockmarketapp.domain.model.CompanyListing
 import com.uxstate.stockmarketapp.domain.model.IntradayInfo
 import com.uxstate.stockmarketapp.domain.repository.StockRepository
 import dagger.Binds
+
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
@@ -19,19 +20,21 @@ abstract class RepositoryModule {
 
     @Binds //used for 1-to-1 interface-implementation mapping
     @Singleton
+    abstract fun bindStockRepository(
+
+            //takes the implementation as parameter
+        stockRepositoryImpl: StockRepositoryImpl
+    ): StockRepository
+
+    @Binds //used for 1-to-1 interface-implementation mapping
+    @Singleton
     abstract fun bindCompanyListingParser(
 
         //takes the implementation as single parameter
         companyListingParser: CompanyListingParser
     ): CSVParser<CompanyListing>
 
-    @Binds //used for 1-to-1 interface-implementation mapping
-    @Singleton
-    abstract fun bindStockRepository(
 
-            //takes the implementation as parameter
-        stockRepositoryImpl: StockRepositoryImpl
-    ): StockRepository
 
     @Binds
     @Singleton

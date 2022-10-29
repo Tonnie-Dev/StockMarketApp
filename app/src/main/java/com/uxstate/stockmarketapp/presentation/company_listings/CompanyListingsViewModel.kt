@@ -57,7 +57,7 @@ class CompanyListingsViewModel @Inject constructor(val repository: StockReposito
 
                 job = viewModelScope.launch {
 
-                    //delay job by half a second to decrease API Calls
+                    //delay search job by half a second to decrease API Calls
 
                     delay(500)
 
@@ -79,6 +79,8 @@ class CompanyListingsViewModel @Inject constructor(val repository: StockReposito
         }
     }
 
+
+    ////you can either use flow.collect or flow.onEach
     //Called on Swipe to Refresh data
     private fun getCompanyListings(
         query: String = state.searchQuery,

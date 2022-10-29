@@ -9,8 +9,9 @@ sealed class Resource<T>(val data: T? = null, val message: String? = null) {
     //Error case - we have a normal generic class
     class  Error<T>( message: String, data: T? = null):Resource<T>(data, message)
 
-    /*We attache a nullable data to the Error case as we can
+    /*We attach a nullable data to the Error case as we can
     * still return some data from the database cache*/
 
-    class Loading<T>(val isLoading:Boolean = true):Resource<T>(data = null)
+
+    class Loading<T>(val isLoading:Boolean = false):Resource<T>(null)
 }

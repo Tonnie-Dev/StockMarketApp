@@ -11,6 +11,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Cancel
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -27,9 +28,9 @@ fun CompanyListingsScreen(
     navigator: DestinationsNavigator,
     viewModel: CompanyListingsViewModel = hiltViewModel()
 ) {
-
-    val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = viewModel.state.isRefreshing)
     val state = viewModel.state
+    val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = state.isRefreshing)
+
 
     Column(modifier = Modifier.fillMaxSize()) {
 

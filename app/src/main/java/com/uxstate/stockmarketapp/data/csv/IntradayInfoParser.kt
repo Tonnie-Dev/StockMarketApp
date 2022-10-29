@@ -67,7 +67,10 @@ class IntradayInfoParser @Inject constructor() : CSVParser<IntradayInfo> {
                         dto.toIntradayInfo()
 
 
-                    }.filter {
+                    }
+
+
+                    .filter {
                       //  it.date.dayOfWeek == DayOfWeek.SATURDAY
                     it.date.dayOfWeek!= DayOfWeek.SUNDAY }
 
